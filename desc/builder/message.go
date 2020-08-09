@@ -232,6 +232,16 @@ func (mb *MessageBuilder) removeChild(b Builder) {
 	b.setParent(nil)
 }
 
+func (mb *MessageBuilder) setParent(newParent Builder) {
+	mb.baseBuilder.setParent(newParent)
+	for _, b := range mb.symbols {
+		switch b.(type) {
+		case *FieldBuilder:
+			b.setParent(newParent)
+		}
+	}
+}
+
 func (mb *MessageBuilder) renamedChild(b Builder, oldName string) error {
 	if p, ok := b.GetParent().(*MessageBuilder); !ok || p != mb {
 		return nil
