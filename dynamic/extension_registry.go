@@ -7,7 +7,7 @@ import (
 
 	"github.com/golang/protobuf/proto"
 
-	"github.com/jhump/protoreflect/desc"
+	"github.com/syumai/protoreflect/desc"
 )
 
 // ExtensionRegistry is a registry of known extension fields. This is used to parse

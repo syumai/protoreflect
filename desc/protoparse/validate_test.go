@@ -1,7 +1,7 @@
 package protoparse
 
 import (
-	"github.com/jhump/protoreflect/internal/testutil"
+	"github.com/syumai/protoreflect/internal/testutil"
 	"strings"
 	"testing"
 )

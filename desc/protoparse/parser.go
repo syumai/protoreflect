@@ -15,8 +15,8 @@ import (
 	"github.com/golang/protobuf/proto"
 	dpb "github.com/golang/protobuf/protoc-gen-go/descriptor"
 
-	"github.com/jhump/protoreflect/desc"
-	"github.com/jhump/protoreflect/desc/internal"
+	"github.com/syumai/protoreflect/desc"
+	"github.com/syumai/protoreflect/desc/internal"
 )
 
 //go:generate goyacc -o proto.y.go -p proto proto.y
