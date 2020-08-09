@@ -15,7 +15,7 @@ RPC services.
 ## Descriptors: The Language Model of Protocol Buffers
 
 ```go
-import "github.com/jhump/protoreflect/desc"
+import "github.com/syumai/protoreflect/desc"
 ```
 
 The `desc` package herein introduces a `Descriptor` interface and implementations of it that
@@ -36,7 +36,7 @@ or by programmatically constructing them (using the `builder` sub-package).
 *[Read more ≫](https://godoc.org/github.com/jhump/protoreflect/desc)*
 
 ```go
-import "github.com/jhump/protoreflect/desc/protoparse"
+import "github.com/syumai/protoreflect/desc/protoparse"
 ```
 
 The `protoparse` package allows for parsing of `.proto` source files into rich descriptors. Without
@@ -47,7 +47,7 @@ directly without having to invoke `protoc`.
 *[Read more ≫](https://godoc.org/github.com/jhump/protoreflect/desc/protoparse)*
 
 ```go
-import "github.com/jhump/protoreflect/desc/protoprint"
+import "github.com/syumai/protoreflect/desc/protoprint"
 ```
 
 The `protoprint` package allows for printing of descriptors to `.proto` source files. This is
@@ -57,7 +57,7 @@ is a useful tool for programmatically generating protocol buffer sources.
 *[Read more ≫](https://godoc.org/github.com/jhump/protoreflect/desc/protoprint)*
 
 ```go
-import "github.com/jhump/protoreflect/desc/builder"
+import "github.com/syumai/protoreflect/desc/builder"
 ```
 
 The `builder` package allows for programmatic construction of rich descriptors. Descriptors can
@@ -75,7 +75,7 @@ descriptors.
 ## Dynamic Messages and Stubs
 
 ```go
-import "github.com/jhump/protoreflect/dynamic"
+import "github.com/syumai/protoreflect/dynamic"
 ```
 
 The `dynamic` package provides a dynamic message implementation. It implements `proto.Message` but
@@ -88,7 +88,7 @@ descriptors at runtime.
 *[Read more ≫](https://godoc.org/github.com/jhump/protoreflect/dynamic)*
 
 ```go
-import "github.com/jhump/protoreflect/dynamic/grpcdynamic"
+import "github.com/syumai/protoreflect/dynamic/grpcdynamic"
 ```
 
 There is also sub-package named `grpcdynamic`, which provides a dynamic stub implementation. The stub can
@@ -100,7 +100,7 @@ be used to issue RPC methods using method descriptors instead of generated clien
 ## gRPC Server Reflection
 
 ```go
-import "github.com/jhump/protoreflect/grpcreflect"
+import "github.com/syumai/protoreflect/grpcreflect"
 ```
 
 The `grpcreflect` package provides an easy-to-use client for the
