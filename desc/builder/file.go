@@ -393,13 +393,49 @@ func (fb *FileBuilder) AddMessage(mb *MessageBuilder) *FileBuilder {
 // prevents the message from being added (such as a name collision with another
 // element already added to the file).
 func (fb *FileBuilder) TryAddMessage(mb *MessageBuilder) error {
-	if err := fb.addSymbol(mb); err != nil {
-		return err
+	var bs []Builder
+	if mb.GetParent() != nil {
+		bs = fb.resolveTypeBuilders(mb)
+	} else {
+		bs = []Builder{mb}
 	}
-	Unlink(mb)
-	mb.setParent(fb)
-	fb.messages = append(fb.messages, mb)
+	for _, b := range bs {
+		if err := fb.addSymbol(b); err != nil && b != mb {
+			fb.RemoveMessage(b.GetName())
+			fb.addSymbol(b)
+		}
+		Unlink(b)
+		b.setParent(fb)
+		switch b := b.(type) {
+		case *MessageBuilder:
+			fb.messages = append(fb.messages, b)
+		case *EnumBuilder:
+			fb.enums = append(fb.enums, b)
+		}
+	}
 	return nil
+}
+
+func (fb *FileBuilder) resolveTypeBuilders(mb *MessageBuilder) []Builder {
+	rootParentName := mb.GetParent().GetName()
+	fmt.Println(mb.GetName(), rootParentName)
+	bs := []Builder{mb}
+	for _, b := range mb.symbols {
+		switch flb := b.(type) {
+		case *FieldBuilder:
+			if msgType := flb.fieldType.localMsgType; msgType != nil &&
+				msgType.GetParent() != nil && msgType.GetParent().GetName() == rootParentName {
+				bs = append(bs, fb.resolveTypeBuilders(msgType)...)
+				continue
+			}
+			if enumType := flb.fieldType.localEnumType; enumType != nil &&
+				enumType.GetParent() != nil && enumType.GetParent().GetName() == rootParentName {
+				bs = append(bs, enumType)
+				continue
+			}
+		}
+	}
+	return bs
 }
 
 // GetExtension returns the top-level extension with the given name. If no such

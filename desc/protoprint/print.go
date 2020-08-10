@@ -505,6 +505,9 @@ func (p *Printer) printFile(fd *desc.FileDescriptor, mf *dynamic.MessageFactory,
 				fmt.Fprintf(w, "package %s;", d)
 			})
 		case imp:
+			if strings.HasPrefix(string(d), "{generated-file") {
+				continue
+			}
 			si := sourceInfo.Get(path)
 			p.printElement(false, si, w, 0, func(w *writer) {
 				fmt.Fprintf(w, "import %q;", d)
